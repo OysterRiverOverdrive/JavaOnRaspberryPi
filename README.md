@@ -29,7 +29,15 @@ The following commands are run from a linux terminal. (Generally started by pres
 
 Download the compressed image.
 
+If you want a full desktop for use of mouse/etc, use:
+
+```bash
+curl -L -o raspios.img.xz https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2022-09-26/2022-09-22-raspios-bullseye-arm64.img.xz
 ```
+
+If you just need a command line terminal, use the raspios lite version:
+
+```bash
 curl -L -o raspios.img.xz https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2022-09-26/2022-09-22-raspios-bullseye-arm64-lite.img.xz
 ```
 
@@ -37,7 +45,7 @@ This should download the 64bit image from https://downloads.raspberrypi.org/rasp
 
 Extract the image.
 
-```
+```bash
 unxz raspios.img.xz
 ```
 
@@ -45,7 +53,7 @@ If you get `command not found: unxz`, you'll need to install the utility. Possib
 
 Find the SD card device.  If you're unsure, run `sudo fdisk -l` before and after inserting the SD card and find the new one.  The device should be `/dev/something` like `/dev/mmcblk0` or `/dev/sdc1`.  BE CAREFUL THAT YOU CHOOSE THE CORRECT DEVICE OR YOU COULD OVERWRITE THE WRONG THING.
 
-```
+```bash
 sudo dd if=raspios.img of=/dev/mmcblk0 status=progress
 ```
 
@@ -65,6 +73,27 @@ If successful, you should see:
 1. A solid red light that indicates it is getting power.
 2. A flickering green light indicates that a program is running.
 
-## Logging In
+## First Boot
+
+On first boot, you'll get prompted for things like keyboard configuration and a username and password.
+
+Connect to the network either through an ethernet cord or add the WiFi and then update the software. This can take some time.
 
 
+```bash
+sudo apt update
+sudo apt install default-jdk
+```
+
+Verify java is installed with the following command which should print the version.
+
+```bash
+java -version
+```
+
+Install vscode
+
+```bash
+sudo apt update
+sudo apt install code
+```
